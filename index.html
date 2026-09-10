@@ -3,30 +3,73 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="ASCUA está preparando un espacio para convertir tus ideas en productos personalizados.">
+    <meta name="description" content="ASCUA convierte los diseños de cada cliente en piezas personalizadas y desarrolla colecciones propias. Estamos preparando algo especial.">
     <meta name="theme-color" content="#fbf5f0">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_CO">
-    <meta property="og:title" content="ASCUA — Tu idea, hecha realidad">
-    <meta property="og:description" content="Estamos preparando algo especial. Muy pronto podrás conocer ASCUA.">
+    <meta property="og:title" content="ASCUA — Ideas que toman forma">
+    <meta property="og:description" content="Creamos piezas personalizadas a partir de tus diseños y desarrollamos colecciones propias con identidad ASCUA.">
     <meta property="og:image" content="assets/ascua-isotipo.png">
-    <title>ASCUA — Estamos preparando algo especial</title>
+    <title>ASCUA — Ideas que toman forma</title>
     <link rel="icon" href="assets/favicon.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="expectativa">
-      <section class="marca" aria-labelledby="titulo-principal">
+    <div class="pliego">
+      <header class="cabecera">
         <div class="identidad">
-          <img class="isotipo" src="assets/ascua-isotipo.png" alt="Isotipo de ASCUA" width="627" height="627">
-          <p class="nombre">ASCUA</p>
+          <img class="identidad__isotipo" src="assets/ascua-isotipo.png" alt="Isotipo de ASCUA" width="627" height="627">
+          <p class="identidad__nombre">ASCUA</p>
         </div>
+        <p class="cabecera__descriptor">Personalización textil y de objetos</p>
+      </header>
 
-        <p class="descriptor">Personalización textil y de objetos</p>
-        <h1 id="titulo-principal">Estamos preparando algo especial.</h1>
-        <p class="mensaje">Muy pronto encontrarás aquí un espacio para convertir tus ideas en productos personalizados.</p>
-        <p class="firma">Tu idea, hecha realidad.</p>
-      </section>
-    </main>
+      <main class="lienzo">
+        <section class="portada" aria-labelledby="titulo-principal">
+          <div class="portada__titular">
+            <p class="portada__folio" aria-hidden="true">Estudio ASCUA</p>
+            <h1 class="portada__titulo" id="titulo-principal">Ideas que toman forma.</h1>
+          </div>
+          <p class="portada__apoyo">Creamos piezas personalizadas a partir de tus diseños y desarrollamos colecciones propias con identidad ASCUA.</p>
+        </section>
+
+        <section class="frentes" aria-labelledby="titulo-frentes">
+          <h2 class="solo-lectores" id="titulo-frentes">Los dos frentes de ASCUA</h2>
+
+          <article class="frente frente--cliente">
+            <p class="frente__indice" aria-hidden="true">01</p>
+            <svg class="frente__marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <path d="M6 34c6-9 11-13 15-12s4 8 8 8 8-5 13-14" />
+              <path d="M6 42h36" class="frente__marca-base" />
+            </svg>
+            <p class="frente__categoria">Diseños de clientes</p>
+            <h3 class="frente__titulo">Tu idea</h3>
+            <p class="frente__texto">Convertimos las ideas, diseños y referencias de cada cliente en piezas personalizadas.</p>
+          </article>
+
+          <div class="frentes__union" aria-hidden="true">
+            <span class="frentes__hilo"></span>
+            <span class="frentes__brasa"></span>
+            <span class="frentes__hilo"></span>
+          </div>
+
+          <article class="frente frente--estudio">
+            <p class="frente__indice" aria-hidden="true">02</p>
+            <svg class="frente__marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <circle cx="24" cy="26" r="7" />
+              <path d="M24 4v8M40 12l-5 6M8 12l5 6M4 34h7M44 34h-7M24 41v3" />
+            </svg>
+            <p class="frente__categoria">Diseños propios</p>
+            <h3 class="frente__titulo">Nuestra visión</h3>
+            <p class="frente__texto">Creamos colecciones y productos originales con identidad ASCUA.</p>
+          </article>
+        </section>
+      </main>
+
+      <footer class="cierre">
+        <p class="cierre__mensaje">Estamos preparando algo especial.</p>
+        <p class="cierre__firma">ASCUA</p>
+      </footer>
+    </div>
   </body>
 </html>
