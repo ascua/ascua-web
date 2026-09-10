@@ -32,12 +32,14 @@ Estas reglas aplican a todo el repositorio.
 ## Git
 
 - Mantener exactamente dos ramas permanentes: `main` y `develop`.
-- `main` representa producción y solo recibe cambios promovidos desde `develop` o correcciones urgentes desde una rama `hotfix/*`.
+- `main` representa producción y solo recibe cambios promovidos desde `develop` mediante pull request.
 - `develop` es la rama de integración y la base normal de todo desarrollo.
 - Crear funcionalidades y cambios ordinarios en ramas `feature/<nombre-breve>` nacidas desde `develop`; integrarlas nuevamente en `develop` mediante pull request.
-- Crear correcciones urgentes de producción en ramas `hotfix/<nombre-breve>` nacidas desde `main`; integrarlas en `main` mediante pull request y sincronizar después el mismo cambio hacia `develop`.
+- Crear correcciones urgentes en ramas `hotfix/<nombre-breve>` e integrarlas en `develop` mediante pull request.
+- Todo cambio debe realizarse en una rama temporal `feature/*` o `hotfix/*`; no hacer commits de trabajo directamente en `develop` ni en `main`.
+- Eliminar la rama temporal inmediatamente después de fusionar su pull request en `develop`.
 - Promover versiones de `develop` a `main` mediante pull request.
-- El único contribuidor humano puede aprobar y fusionar sus propios pull requests. No configurar protecciones que exijan la aprobación de otra persona o que bloqueen al propietario del repositorio.
+- El propietario, como único contribuidor humano, puede revisar y fusionar sus propios pull requests. No configurar protecciones que exijan la aprobación de otra persona o que bloqueen al propietario del repositorio.
 - Seguir Conventional Commits 1.0.0 usando exclusivamente una primera línea con el formato `<type>[optional scope]: <description>`.
 - No añadir cuerpo, pie, coautoría ni líneas adicionales al mensaje del commit.
 - Usar tipos pertinentes como `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `build`, `ci`, `chore`, `perf` o `revert`.
