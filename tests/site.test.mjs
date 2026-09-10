@@ -46,7 +46,6 @@ test("la composición se adapta a ventanas de poca altura", async () => {
 
   assert.match(css, /@media\s*\(max-height:\s*48rem\)/i);
 });
-
 test("el dominio personalizado está declarado", async () => {
   const cname = await readFile(new URL("../CNAME", import.meta.url), "utf8");
 
