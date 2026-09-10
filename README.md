@@ -4,7 +4,7 @@ Sitio web oficial de ASCUA: presencia digital, novedades y experiencias que cone
 
 ## Estado
 
-El proyecto se encuentra en su etapa inicial. La primera entrega será una página de expectativa estática publicada mediante GitHub Pages y conectada al dominio oficial.
+El proyecto contiene una página de expectativa estática preparada para publicarse mediante GitHub Pages y conectarse posteriormente al dominio oficial.
 
 ## Principios
 
@@ -25,3 +25,20 @@ Las reglas de colaboración y desarrollo están documentadas en [`AGENTS.md`](AG
 Todo trabajo se realiza en una rama temporal. Después de fusionar el pull request en `develop`, la rama se elimina. Las publicaciones pasan de `develop` a `main` mediante otro pull request, que activa el despliegue de producción.
 
 Los commits siguen [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) y contienen únicamente la línea `<type>[optional scope]: <description>`.
+
+## Desarrollo local
+
+El sitio no requiere instalación ni compilación. Puede servirse con cualquier servidor HTTP estático y abrirse desde el navegador.
+
+Las pruebas usan el ejecutor integrado de Node.js:
+
+```sh
+node --test tests/site.test.mjs
+```
+
+## Estructura
+
+- `index.html`: contenido y metadatos de la página.
+- `styles.css`: identidad visual y adaptación responsive.
+- `assets/`: isotipo, favicon y tipografía alojada localmente.
+- `tests/`: validaciones automatizadas del contenido y los recursos.
