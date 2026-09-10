@@ -12,6 +12,10 @@
   --grafito: #3a3a3a;
   --gris-claro: #e6e8ee;
   --rojo-brasa: #d9401e;
+
+  --tinta-tenue: rgb(23 23 23 / 12%);
+  --tinta-sutil: rgb(23 23 23 / 6%);
+  --margen: clamp(1.25rem, 5vw, 4.5rem);
 }
 
 *,
@@ -27,100 +31,333 @@ html {
 }
 
 body {
+  position: relative;
   min-width: 20rem;
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0;
   color: var(--negro);
-  background:
-    radial-gradient(circle at 50% 18%, rgb(217 64 30 / 5%), transparent 30rem),
-    var(--blanco-calido);
+  background: var(--blanco-calido);
 }
 
-.expectativa {
-  display: grid;
+/* Trama de tela: dos urdimbres cruzadas, apenas perceptibles. */
+body::before {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgb(217 64 30 / 7%), transparent 70%),
+    repeating-linear-gradient(90deg, var(--tinta-sutil) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(0deg, var(--tinta-sutil) 0 1px, transparent 1px 6px);
+  opacity: 0.4;
+  content: "";
+  pointer-events: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rojo-brasa);
+  outline-offset: 3px;
+}
+
+.solo-lectores {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Pliego: el papel impreso que sostiene toda la composición. */
+.pliego {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 6vh, 4rem);
   min-height: 100vh;
   min-height: 100dvh;
-  place-items: center;
-  padding: clamp(2rem, 6vw, 5rem) 1.5rem;
+  padding: clamp(1.75rem, 5vh, 3.5rem) var(--margen);
 }
 
-.marca {
-  width: min(100%, 45rem);
-  text-align: center;
-  animation: aparecer 700ms ease-out both;
+/* Cabecera */
+
+.cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  padding-bottom: clamp(1rem, 3vh, 1.75rem);
+  border-bottom: 1px solid var(--tinta-tenue);
+  animation: surgir 700ms ease-out both;
 }
 
 .identidad {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
+  gap: 0.7rem;
 }
 
-.isotipo {
-  width: clamp(3.5rem, 9vw, 5rem);
+.identidad__isotipo {
+  width: clamp(2.25rem, 4vw, 2.9rem);
   height: auto;
 }
 
-.nombre {
+.identidad__nombre {
   margin: 0;
-  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.22em;
   line-height: 1;
 }
 
-.descriptor {
-  margin: 1.25rem 0 0;
+.cabecera__descriptor {
+  margin: 0;
   color: var(--grafito);
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  font-size: clamp(0.65rem, 1.6vw, 0.75rem);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-h1 {
-  max-width: 13ch;
-  margin: clamp(3rem, 8vw, 5rem) auto 0;
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
-  font-weight: 750;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-  text-wrap: balance;
+/* Lienzo */
+
+.lienzo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: clamp(2.5rem, 7vh, 5rem);
+  justify-content: center;
 }
 
-.mensaje {
-  max-width: 37rem;
-  margin: 1.75rem auto 0;
-  color: var(--grafito);
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  line-height: 1.65;
-  text-wrap: pretty;
+/* Portada editorial */
+
+.portada {
+  position: relative;
+  display: grid;
+  align-items: end;
+  gap: clamp(1.25rem, 3vw, 3rem);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  animation: surgir 800ms 90ms ease-out both;
 }
 
-.firma {
-  display: inline-flex;
+.portada__titular {
+  min-width: 0;
+}
+
+/* El rojo brasa queda en el trazo; el texto conserva contraste AA. */
+.portada__folio {
+  display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin: clamp(3rem, 8vw, 5rem) 0 0;
-  color: var(--grafito);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  gap: 0.7rem;
+  margin: 0 0 clamp(0.85rem, 2.5vh, 1.5rem);
+  color: var(--negro);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
 }
 
-.firma::before {
-  width: 1.75rem;
-  height: 0.125rem;
+.portada__folio::before {
+  width: 1.5rem;
+  height: 2px;
   background: var(--rojo-brasa);
   content: "";
 }
 
-@keyframes aparecer {
+.portada__titulo {
+  position: relative;
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(2.75rem, 9.5vw, 7rem);
+  font-weight: 780;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.portada__apoyo {
+  position: relative;
+  max-width: 34ch;
+  margin: 0;
+  padding-left: clamp(1rem, 2vw, 1.5rem);
+  border-left: 2px solid var(--rojo-brasa);
+  color: var(--grafito);
+  font-size: clamp(0.95rem, 1.6vw, 1.125rem);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* Frentes de trabajo */
+
+.frentes {
+  display: grid;
+  align-items: stretch;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  padding-top: clamp(1.5rem, 4vh, 2.5rem);
+  border-top: 1px solid var(--tinta-tenue);
+  animation: surgir 800ms 180ms ease-out both;
+}
+
+.frente {
+  position: relative;
+  padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1.1rem, 2.5vw, 1.9rem);
+  border: 1px solid var(--tinta-tenue);
+  background:
+    repeating-linear-gradient(135deg, var(--tinta-sutil) 0 1px, transparent 1px 7px),
+    rgb(255 255 255 / 45%);
+}
+
+/* Puntada de bastilla en el borde superior de cada frente. */
+.frente::before {
+  position: absolute;
+  top: -1px;
+  right: clamp(1.1rem, 2.5vw, 1.9rem);
+  left: clamp(1.1rem, 2.5vw, 1.9rem);
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--negro) 0 6px, transparent 6px 12px);
+  content: "";
+}
+
+.frente--estudio::before {
+  background: repeating-linear-gradient(90deg, var(--rojo-brasa) 0 6px, transparent 6px 12px);
+}
+
+.frente__indice {
+  position: absolute;
+  top: clamp(1.25rem, 2.5vw, 2rem);
+  right: clamp(1.1rem, 2.5vw, 1.9rem);
+  margin: 0;
+  color: var(--tinta-tenue);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.frente__marca {
+  display: block;
+  width: clamp(2rem, 4vw, 2.5rem);
+  height: auto;
+  color: var(--negro);
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.25;
+}
+
+.frente--estudio .frente__marca {
+  color: var(--rojo-brasa);
+}
+
+.frente__marca-base {
+  stroke-dasharray: 5 5;
+  opacity: 0.45;
+}
+
+.frente__categoria {
+  margin: clamp(1.25rem, 3vw, 2rem) 0 0;
+  color: var(--grafito);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.frente__titulo {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.frente__texto {
+  max-width: 38ch;
+  margin: 0.75rem 0 0;
+  color: var(--grafito);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* Costura que une los dos frentes */
+
+.frentes__union {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.frentes__hilo {
+  flex: 1;
+  width: 2px;
+  min-height: 1.5rem;
+  background: repeating-linear-gradient(180deg, var(--rojo-brasa) 0 5px, transparent 5px 11px);
+  opacity: 0.6;
+}
+
+.frentes__brasa {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--rojo-brasa);
+  box-shadow: 0 0 0 0.4rem rgb(217 64 30 / 12%);
+  animation: brasa 4.5s ease-in-out infinite;
+}
+
+/* Cierre */
+
+.cierre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-top: clamp(1rem, 3vh, 1.75rem);
+  border-top: 1px solid var(--tinta-tenue);
+  animation: surgir 800ms 270ms ease-out both;
+}
+
+.cierre__mensaje {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.cierre__mensaje::before {
+  width: 1.75rem;
+  height: 2px;
+  background: var(--rojo-brasa);
+  content: "";
+}
+
+.cierre__firma {
+  margin: 0;
+  color: var(--grafito);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+/* Animaciones */
+
+@keyframes surgir {
   from {
     opacity: 0;
-    transform: translateY(0.75rem);
+    transform: translateY(0.6rem);
   }
 
   to {
@@ -129,53 +366,158 @@ h1 {
   }
 }
 
-@media (max-width: 32rem) {
-  .identidad {
-    gap: 0.65rem;
+@keyframes brasa {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0.35rem rgb(217 64 30 / 10%);
+    opacity: 0.75;
   }
 
-  .descriptor {
-    letter-spacing: 0.08em;
-  }
-
-  h1 {
-    margin-top: 3.5rem;
+  50% {
+    box-shadow: 0 0 0 0.55rem rgb(217 64 30 / 16%);
+    opacity: 1;
   }
 }
 
+/* Adaptación a pantallas angostas */
+
+@media (max-width: 60rem) {
+  .portada {
+    align-items: start;
+    gap: clamp(1.25rem, 4vw, 2rem);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portada__titulo {
+    max-width: 14ch;
+  }
+
+  .frentes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .frentes__union {
+    flex-direction: row;
+    padding-block: 0.25rem;
+  }
+
+  .frentes__hilo {
+    width: auto;
+    height: 2px;
+    min-width: 1.5rem;
+    min-height: 0;
+    background: repeating-linear-gradient(90deg, var(--rojo-brasa) 0 5px, transparent 5px 11px);
+  }
+}
+
+@media (max-width: 32rem) {
+  .cabecera {
+    align-items: baseline;
+  }
+
+  .identidad__nombre {
+    letter-spacing: 0.18em;
+  }
+
+  .cabecera__descriptor {
+    letter-spacing: 0.12em;
+  }
+
+  .frente__indice {
+    font-size: 1.75rem;
+  }
+
+  .cierre {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Ventanas de poca altura: comprimir sin perder jerarquía */
+
 @media (max-height: 48rem) {
-  .expectativa {
-    padding-block: 1.5rem;
+  .pliego {
+    gap: clamp(1.25rem, 3vh, 2rem);
+    padding-block: clamp(1rem, 2.5vh, 1.75rem);
   }
 
-  .isotipo {
-    width: clamp(3.25rem, 8vh, 4.25rem);
+  .lienzo {
+    gap: clamp(1.5rem, 4vh, 2.5rem);
   }
 
-  .nombre {
-    font-size: clamp(2rem, 7vh, 3rem);
+  .portada__titulo {
+    font-size: clamp(2.25rem, 9vh, 4.5rem);
   }
 
-  .descriptor {
-    margin-top: 0.85rem;
+  .portada__folio {
+    margin-bottom: 0.75rem;
   }
 
-  h1 {
-    margin-top: 2rem;
-    font-size: clamp(2.5rem, 10vh, 4.5rem);
+  .frente {
+    padding-block: clamp(1rem, 3vh, 1.5rem);
   }
 
-  .mensaje {
-    margin-top: 1.25rem;
+  .frente__categoria {
+    margin-top: clamp(0.85rem, 2.5vh, 1.5rem);
+  }
+}
+
+@media (max-height: 34rem) {
+  .pliego {
+    gap: 0.7rem;
+    padding-block: 0.8rem;
   }
 
-  .firma {
-    margin-top: 2rem;
+  .cabecera {
+    padding-bottom: 0.75rem;
+  }
+
+  .lienzo {
+    gap: 0.9rem;
+  }
+
+  .portada__apoyo {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .portada__folio,
+  .frente__marca {
+    display: none;
+  }
+
+  .portada__titulo {
+    font-size: clamp(1.75rem, 7.5vh, 2.75rem);
+  }
+
+  .frentes {
+    padding-top: 1rem;
+  }
+
+  .frente {
+    padding-block: 0.8rem;
+  }
+
+  .frente__categoria {
+    margin-top: 0;
+  }
+
+  .frente__texto {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .cierre {
+    padding-top: 0.75rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marca {
+  .cabecera,
+  .portada,
+  .frentes,
+  .cierre,
+  .frentes__brasa {
     animation: none;
   }
 }
