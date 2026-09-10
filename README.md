@@ -14,3 +14,12 @@ El proyecto se encuentra en su etapa inicial. La primera entrega será una pági
 - Sin dependencias innecesarias.
 
 Las reglas de colaboración y desarrollo están documentadas en [`AGENTS.md`](AGENTS.md).
+
+## Flujo de ramas
+
+- `main`: versión publicada en producción.
+- `develop`: integración de los próximos cambios.
+- `feature/*`: funcionalidades y cambios ordinarios basados en `develop`.
+- `hotfix/*`: correcciones urgentes basadas en `main`.
+
+Los commits siguen [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) y contienen únicamente la línea `<type>[optional scope]: <description>`.

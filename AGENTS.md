@@ -31,7 +31,17 @@ Estas reglas aplican a todo el repositorio.
 
 ## Git
 
-- Usar ramas con el prefijo `codex/` para trabajo automatizado.
-- Escribir commits breves y descriptivos en español.
+- Mantener exactamente dos ramas permanentes: `main` y `develop`.
+- `main` representa producción y solo recibe cambios promovidos desde `develop` o correcciones urgentes desde una rama `hotfix/*`.
+- `develop` es la rama de integración y la base normal de todo desarrollo.
+- Crear funcionalidades y cambios ordinarios en ramas `feature/<nombre-breve>` nacidas desde `develop`; integrarlas nuevamente en `develop` mediante pull request.
+- Crear correcciones urgentes de producción en ramas `hotfix/<nombre-breve>` nacidas desde `main`; integrarlas en `main` mediante pull request y sincronizar después el mismo cambio hacia `develop`.
+- Promover versiones de `develop` a `main` mediante pull request.
+- El único contribuidor humano puede aprobar y fusionar sus propios pull requests. No configurar protecciones que exijan la aprobación de otra persona o que bloqueen al propietario del repositorio.
+- Seguir Conventional Commits 1.0.0 usando exclusivamente una primera línea con el formato `<type>[optional scope]: <description>`.
+- No añadir cuerpo, pie, coautoría ni líneas adicionales al mensaje del commit.
+- Usar tipos pertinentes como `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `build`, `ci`, `chore`, `perf` o `revert`.
+- Escribir la descripción del commit en español, en minúscula y de forma breve.
+- Conservar la identidad Git configurada por el propietario. Codex, agentes, bots o asistentes no deben aparecer como autores, committers, coautores ni contribuidores de ningún commit.
 - No reescribir la historia compartida ni hacer `push --force` salvo autorización expresa.
 - No incorporar archivos temporales, resultados de pruebas ni artefactos locales.
