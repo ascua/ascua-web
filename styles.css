@@ -80,6 +80,8 @@ body::before {
   gap: clamp(2rem, 6vh, 4rem);
   min-height: 100vh;
   min-height: 100dvh;
+  max-width: 88rem;
+  margin-inline: auto;
   padding: clamp(1.75rem, 5vh, 3.5rem) var(--margen);
 }
 
@@ -167,7 +169,7 @@ body::before {
 .aviso__titulo {
   max-width: 13ch;
   margin: 0;
-  font-size: clamp(2.75rem, 8.5vw, 6.5rem);
+  font-size: clamp(2.75rem, min(8.5vw, 12vh), 8.5rem);
   font-weight: 780;
   letter-spacing: -0.05em;
   line-height: 0.95;
@@ -339,6 +341,25 @@ body::before {
 }
 
 /* Ventanas de poca altura: comprimir sin perder jerarquía */
+
+@media (max-height: 60rem) {
+  .pliego {
+    gap: clamp(1rem, 3vh, 2rem);
+    padding-block: clamp(1rem, 3.5vh, 2rem);
+  }
+
+  .aviso__lema {
+    margin-bottom: 0.75rem;
+  }
+
+  .aviso__apoyo {
+    margin-top: clamp(1rem, 2.5vh, 1.5rem);
+  }
+
+  .redes {
+    margin-top: clamp(1.25rem, 3vh, 2rem);
+  }
+}
 
 @media (max-height: 34rem) {
   .pliego {
