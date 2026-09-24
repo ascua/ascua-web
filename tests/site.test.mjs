@@ -5,28 +5,29 @@ import test from "node:test";
 const leerHtml = () => readFile(new URL("../index.html", import.meta.url), "utf8");
 const leerCss = () => readFile(new URL("../styles.css", import.meta.url), "utf8");
 
-test("la página presenta el mensaje principal de ASCUA", async () => {
+test("el mensaje de expectativa es el titular principal", async () => {
   const html = await leerHtml();
 
   assert.match(html, /<html lang="es">/);
   assert.match(html, /<meta charset="utf-8">/);
+  assert.match(
+    html,
+    /<h1[^>]*>Estamos preparando <span class="aviso__destacado">algo especial\.<\/span><\/h1>/,
+  );
   assert.match(html, /Ideas que toman forma\./);
   assert.match(
     html,
     /Creamos piezas personalizadas a partir de tus diseños y desarrollamos colecciones propias con identidad ASCUA\./,
   );
-  assert.match(html, /Estamos preparando algo especial\./);
 });
 
-test("la página comunica los dos frentes de trabajo", async () => {
+test("la página enlaza las redes sociales de ASCUA", async () => {
   const html = await leerHtml();
 
-  assert.match(html, /Tu idea/);
-  assert.match(html, /Nuestra visión/);
-  assert.match(html, /Diseños de clientes/i);
-  assert.match(html, /Diseños propios/i);
-  assert.match(html, /class="frentes"/);
-  assert.equal(html.match(/class="frente[ "]/g)?.length, 2);
+  assert.match(html, /<nav class="redes" aria-label="[^"]+">/);
+  assert.match(html, /href="https:\/\/www\.instagram\.com\/ascuaestudio"/);
+  assert.match(html, /href="https:\/\/www\.facebook\.com\/ascuaestudio"/);
+  assert.equal(html.match(/class="red[ "]/g)?.length, 2);
 });
 
 test("la página conserva la identidad visible de la marca", async () => {
@@ -47,7 +48,7 @@ test("la estructura del documento es semántica", async () => {
   }
 
   assert.equal(html.match(/<h1[\s>]/g)?.length, 1);
-  assert.ok((html.match(/<section[\s>]/g)?.length ?? 0) >= 2);
+  assert.ok((html.match(/<section[\s>]/g)?.length ?? 0) >= 1);
 });
 
 test("cada referencia aria-labelledby apunta a un identificador existente", async () => {
@@ -58,7 +59,7 @@ test("cada referencia aria-labelledby apunta a un identificador existente", asyn
     valor.split(/\s+/),
   );
 
-  assert.ok(referencias.length >= 2, "se esperan regiones etiquetadas");
+  assert.ok(referencias.length >= 1, "se esperan regiones etiquetadas");
   for (const referencia of referencias) {
     assert.ok(identificadores.has(referencia), `id inexistente: ${referencia}`);
   }
@@ -84,7 +85,11 @@ test("el sitio permanece estático y sin dependencias externas", async () => {
 
   assert.doesNotMatch(html, /<script/i);
   assert.doesNotMatch(html, /<form/i);
-  assert.doesNotMatch(html, /(?:src|href)="https?:\/\//i);
+  const externos = [...html.matchAll(/(?:src|href)="(https?:\/\/[^"]+)"/gi)].map(([, url]) => url);
+  assert.deepEqual(externos, [
+    "https://www.instagram.com/ascuaestudio",
+    "https://www.facebook.com/ascuaestudio",
+  ]);
   assert.doesNotMatch(css, /@import/i);
   assert.doesNotMatch(css, /url\(\s*["']?https?:\/\//i);
 });
@@ -112,8 +117,8 @@ test("la composición aporta textura artesanal sin recursos externos", async () 
   const css = await leerCss();
 
   assert.match(css, /repeating-linear-gradient/i);
-  assert.match(css, /\.frentes/);
-  assert.match(css, /\.frente\b/);
+  assert.match(css, /\.aviso\b/);
+  assert.match(css, /\.redes\b/);
 });
 
 test("los recursos locales necesarios están disponibles", async () => {
@@ -137,7 +142,7 @@ test("los metadatos describen la propuesta de la marca", async () => {
   assert.match(html, /<title>[^<]*ASCUA[^<]*<\/title>/);
   assert.match(html, /<meta name="description" content="[^"]*ASCUA[^"]*">/);
   assert.match(html, /<meta name="theme-color" content="#fbf5f0">/);
-  assert.match(html, /<meta property="og:title" content="[^"]*Ideas que toman forma[^"]*">/);
+  assert.match(html, /<meta property="og:title" content="[^"]*Estamos preparando algo especial[^"]*">/);
   assert.match(html, /<meta property="og:image" content="assets\/ascua-isotipo\.png">/);
 });
 
