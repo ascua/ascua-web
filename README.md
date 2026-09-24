@@ -42,3 +42,4 @@ node --test tests/site.test.mjs
 - `styles.css`: identidad visual y adaptación responsive.
 - `assets/`: isotipo, favicon y tipografía alojada localmente.
 - `tests/`: validaciones automatizadas del contenido y los recursos.
+- `design-system/ascua/`: sistema de diseño (`PRODUCT.md` para audiencia y voz, `MASTER.md` para color, tipografía, espaciado y movimiento). Es la fuente de verdad visual antes de crear o modificar pantallas.
