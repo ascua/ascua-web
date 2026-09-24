@@ -10,7 +10,10 @@ test("el mensaje de expectativa es el titular principal", async () => {
 
   assert.match(html, /<html lang="es">/);
   assert.match(html, /<meta charset="utf-8">/);
-  assert.match(html, /<h1[^>]*>Estamos preparando algo especial\.<\/h1>/);
+  assert.match(
+    html,
+    /<h1[^>]*>Estamos preparando <span class="aviso__destacado">algo especial\.<\/span><\/h1>/,
+  );
   assert.match(html, /Ideas que toman forma\./);
   assert.match(
     html,
